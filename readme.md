@@ -1,11 +1,12 @@
 # Exam Info
 
-Reference: https://www.redhat.com/en/services/training/ex188-red-hat-certified-specialist-containers-exam
+Reference: <https://www.redhat.com/en/services/training/ex188-red-hat-certified-specialist-containers-exam>
 
-## Objectives:
+## Objectives
 
-### 1 - Implement images using Podman
-* Understand and use FROM (the concept of a base image) instruction.  
+### 1 - Implement images using Podman  
+
+* Understand and use FROM (the concept of a base image) instruction.
 * Understand and use RUN instruction.  
 * Understand and use ADD instruction.  
 * Understand and use COPY instruction.  
@@ -56,4 +57,3 @@ Reference: https://www.redhat.com/en/services/training/ex188-red-hat-certified-s
 * Get application logs
 * Inspect running applications
 * Connecting to running containers
-
