@@ -7,7 +7,7 @@ theme:
 
 
 nav:
-  - Home: 'readme.md'
+  - Home: 'index.md'
   - 'EX188':
       - '0 - Exam Objectives': 'ex188/readme.md'
       - '1 - Implement images using Podman': 'ex188/01-implement-images-using-podman.md'
