@@ -1,0 +1,1239 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../readme/">
+      
+      
+        <link rel="next" href="../02-manage-images/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.14">
+    
+    
+      
+        <title>1 - Implement images using Podman - Red Hat Certification Exam Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.fad675c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.356b1318.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#implement-images-using-podman" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Red Hat Certification Exam Notes" class="md-header__button md-logo" aria-label="Red Hat Certification Exam Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Red Hat Certification Exam Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              1 - Implement images using Podman
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Red Hat Certification Exam Notes" class="md-nav__button md-logo" aria-label="Red Hat Certification Exam Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Red Hat Certification Exam Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    EX188
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            EX188
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    0 - Exam Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    1 - Implement images using Podman
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    1 - Implement images using Podman
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#understand-and-use-from-the-concept-of-a-base-image-instruction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understand and use FROM (the concept of a base image) instruction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-and-use-run-instruction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understand and use RUN instruction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-and-use-add-instruction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understand and use ADD instruction
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understand and use ADD instruction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#considerations-and-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Considerations and Best Practices
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-and-use-copy-instruction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understand and use COPY instruction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-the-difference-between-add-and-copy-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understand the difference between ADD and COPY instructions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understand the difference between ADD and COPY instructions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADD Command
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#choosing-between-copy-and-add" class="md-nav__link">
+    <span class="md-ellipsis">
+      Choosing Between COPY and ADD*
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-and-use-workdir-and-user-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understand and use WORKDIR and USER instructions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understand and use WORKDIR and USER instructions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      Syntax
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-security-related-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understand security-related topics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-the-differences-and-applicability-of-cmd-vs-entrypoint-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understand the differences and applicability of CMD vs. ENTRYPOINT instructions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-entrypoint-instruction-with-param" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understand ENTRYPOINT instruction with param
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-when-and-how-to-expose-ports-from-a-containerfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understand when and how to expose ports from a Containerfile
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-and-use-environment-variables-inside-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understand and use environment variables inside images
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-env-instruction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understand ENV instruction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-container-volume" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understand container volume
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mount-a-host-directory-as-a-data-volume" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mount a host directory as a data volume
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-security-and-permissions-requirements-related-to-this-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understand security and permissions requirements related to this approach
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-the-lifecycle-and-cleanup-requirements-of-this-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understand the lifecycle and cleanup requirements of this approach
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-manage-images/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2 - Manage images
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-run-containers-locally-using-podman/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3 - Run containers locally using Podman
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-run-multi-container-applications-with-podman/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4 - Run multi-container applications with Podman
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-troubleshoot-containerized-applications/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5 - Troubleshoot containerized applications
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#understand-and-use-from-the-concept-of-a-base-image-instruction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understand and use FROM (the concept of a base image) instruction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-and-use-run-instruction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understand and use RUN instruction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-and-use-add-instruction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understand and use ADD instruction
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understand and use ADD instruction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#considerations-and-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Considerations and Best Practices
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-and-use-copy-instruction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understand and use COPY instruction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-the-difference-between-add-and-copy-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understand the difference between ADD and COPY instructions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understand the difference between ADD and COPY instructions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADD Command
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#choosing-between-copy-and-add" class="md-nav__link">
+    <span class="md-ellipsis">
+      Choosing Between COPY and ADD*
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-and-use-workdir-and-user-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understand and use WORKDIR and USER instructions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understand and use WORKDIR and USER instructions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      Syntax
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-security-related-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understand security-related topics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-the-differences-and-applicability-of-cmd-vs-entrypoint-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understand the differences and applicability of CMD vs. ENTRYPOINT instructions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-entrypoint-instruction-with-param" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understand ENTRYPOINT instruction with param
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-when-and-how-to-expose-ports-from-a-containerfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understand when and how to expose ports from a Containerfile
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-and-use-environment-variables-inside-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understand and use environment variables inside images
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-env-instruction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understand ENV instruction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-container-volume" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understand container volume
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mount-a-host-directory-as-a-data-volume" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mount a host directory as a data volume
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-security-and-permissions-requirements-related-to-this-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understand security and permissions requirements related to this approach
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-the-lifecycle-and-cleanup-requirements-of-this-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understand the lifecycle and cleanup requirements of this approach
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="implement-images-using-podman">Implement images using Podman</h1>
+<h2 id="understand-and-use-from-the-concept-of-a-base-image-instruction">Understand and use FROM (the concept of a base image) instruction</h2>
+<p><code>FROM</code> serves as a starting point for building a container image. It specifies the <code>base image</code> to use for the image. This base image is typically a lightweight version of an operating system like Ubuntu, Alpine, or even a minimal image that contains only the bare essentials needed for an application to run.</p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">alpine:3.18.5</span>
+</code></pre></div>
+<p>Specifies the image will be using the <code>alpine:3.18.5</code> image as its base. Represented as <code>name:version(aka tag)</code></p>
+<p>Other key characteristics of <code>FROM</code> include:</p>
+<p><strong>Layering</strong> - Every instruction in a Dockerfile will result in a <code>layer</code> when the image is built. This is partly why we specify a base image first - it provides us with a foundation to add further components to the image.</p>
+<p><strong>Multi Stage Container</strong> - You can have multiple <code>FROM</code> declarations in a container image - these are used in multi-staged builds. This is useful for creating lightweight images by compiling or building your application in a first stage with all necessary build tools, and then copying the relevant artifacts into a second stage with a leaner base image.</p>
+<p><strong>Efficiency and Security</strong> - Selecting (or building) an appropriate base image is crucial for the efficiency and security of the container image. A minimal base image reduces the size of the image and also minimizes the attack service, as there are fewer components that could contain vulnerabilities compared to a fully fledged, general purpose Operating System.</p>
+<p>Example Multi Stage Build:</p>
+<div class="highlight"><pre><span></span><code><span class="c"># Stage 1: Building the code</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">node:14</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="s">builder</span>
+
+<span class="c"># Create app directory</span>
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/usr/src/app</span>
+
+<span class="c"># Install app dependencies</span>
+<span class="k">COPY</span><span class="w"> </span>package*.json<span class="w"> </span>./
+<span class="k">RUN</span><span class="w"> </span>npm<span class="w"> </span>install
+
+<span class="c"># Bundle app source</span>
+<span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>.
+
+<span class="c"># Build the application</span>
+<span class="k">RUN</span><span class="w"> </span>npm<span class="w"> </span>run<span class="w"> </span>build
+
+<span class="c"># Stage 2: Setup the production environment</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">node:14-alpine</span>
+
+<span class="c"># Set the working directory</span>
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/usr/src/app</span>
+
+<span class="c"># Copy package.json and package-lock.json</span>
+<span class="k">COPY</span><span class="w"> </span>package*.json<span class="w"> </span>./
+
+<span class="c"># Install only production dependencies</span>
+<span class="k">RUN</span><span class="w"> </span>npm<span class="w"> </span>install<span class="w"> </span>--only<span class="o">=</span>production
+
+<span class="c"># Copy built assets from the builder stage</span>
+<span class="k">COPY</span><span class="w"> </span>--from<span class="o">=</span>builder<span class="w"> </span>/usr/src/app/dist<span class="w"> </span>./dist
+
+<span class="c"># Your app runs on port 3000</span>
+<span class="k">EXPOSE</span><span class="w"> </span><span class="s">3000</span>
+
+<span class="c"># Start the app</span>
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;node&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;dist/main.js&quot;</span><span class="p">]</span>
+</code></pre></div>
+<ul>
+<li>Stage 1: Building code  </li>
+<li><code>FROM node:14 as builder</code>: this stage starts with a  Nodejs version 14 image. <code>as builder</code> part names this stage as <code>builder</code>.</li>
+<li>The image then copies the application's source code and its dependencies into the image and performs the build. In this case, it's a typical Node.js setup with npm install and a build command like npm run build.</li>
+<li>Stage 2: Setting up runtime environment</li>
+<li>Note this stage is using a slightly different container image, although named similarly. In this example <code>FROM node:14-alpine</code> - a more lightweight version of the node image from stage 1.</li>
+<li>This stage does not include the entire build environment. Instead, it only installs the production dependencies (<code>npm install --only=production</code>) and copies the built assets (dist directory) from the builder stage. This way, the final image contains only what's necessary to run the application, reducing the image size and surface area for potential vulnerabilities.</li>
+</ul>
+<h2 id="understand-and-use-run-instruction">Understand and use RUN instruction</h2>
+<p><code>RUN</code> is a fundamental command used during the image building process. It allows us to execute commands in a layer above the current image and commit the results. The resulting committed layer is used in the subsequent steps in the Image definition.</p>
+<p><code>RUN</code> is essential for installing software, building software, altering files and running tasks necessary to set up the desired environment inside the container for our application</p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">fedora:39</span>
+
+<span class="k">RUN</span><span class="w"> </span>dnf<span class="w"> </span>upgrade<span class="w"> </span>--refresh<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="nv">$packageName</span>
+</code></pre></div>
+<p>Key characteristics of <code>RUN</code>:</p>
+<ul>
+<li>Layering</li>
+<li>Each <code>RUN</code> command creates a new layer inside the container image. For efficiency, it is common to combine multiple <code>RUN</code> commands together using <code>&amp;&amp;</code>, as shown in the example above.</li>
+<li>Shell vs exec form</li>
+<li>The <code>RUN</code> command can be run in two different ways - <code>shell</code> and <code>exec</code><ul>
+<li>Shell method: <code>RUN &lt;command&gt;</code> - is the equivalent of invoking <code>/bin/sh -c</code> followed by the <code>&lt;command&gt;</code></li>
+<li>Exec method: <code>RUN ["executable", "param1", "param2"]</code> - This form does not invoke a shell. It's useful when you want to avoid shell string munging, and it's necessary if you want to execute software that's not a Unix shell, like Java or Python programs.</li>
+</ul>
+</li>
+</ul>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code><span class="c"># Using the shell form to update package lists and install a package (shell method)</span>
+<span class="k">RUN</span><span class="w"> </span>dnf<span class="w"> </span>upgrade<span class="w"> </span>--refresh<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>curl
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c"># Invoking a python app (exec method)</span>
+<span class="k">RUN</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;python&quot;</span>,<span class="w"> </span><span class="s2">&quot;/path/to/your_script.py&quot;</span>,<span class="w"> </span><span class="s2">&quot;arg1&quot;</span>,<span class="w"> </span><span class="s2">&quot;arg2&quot;</span><span class="o">]</span>
+</code></pre></div>
+<h2 id="understand-and-use-add-instruction">Understand and use ADD instruction</h2>
+<p><code>ADD</code> is used to copy files, directories from either a local machine building the image, or from a remote URL. <code>ADD</code> can be considered to have all the functionality of <code>COPY</code> but with more functionality.</p>
+<p>Key difference: <code>COPY</code> does <strong>not</strong> support remote URL's.</p>
+<p>Key characteristics of <code>ADD</code></p>
+<ul>
+<li>
+<p><strong>Automatic Tar Extraction</strong> - If the source file being copied is a tarball in recognized compression formats (like gzip, bzip2, etc.), ADD automatically extracts the contents of the tarball into the destination directory within the container’s filesystem. This is not the case with COPY, which would just copy the tar file as-is.</p>
+</li>
+<li>
+<p><strong>Syntax</strong> - <code>ADD &lt;src&gt; &lt;dest&gt;</code> : Here, <code>&lt;src&gt;</code> could be a file or directory from the Dockerfile's context, or a URL. <code>&lt;dest&gt;</code> is the path where the files will be placed inside the Docker image.</p>
+</li>
+</ul>
+<p>Examples:</p>
+<div class="highlight"><pre><span></span><code><span class="c"># Copies a local file &quot;example.txt&quot; into the image at &quot;/path/in/container/&quot;</span>
+<span class="k">ADD</span><span class="w"> </span>example.txt<span class="w"> </span>/path/in/container/
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c"># Copies a local directory &quot;config_files&quot; and its contents into &quot;/config/&quot; inside the image</span>
+<span class="k">ADD</span><span class="w"> </span>config_files<span class="w"> </span>/config/
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c"># Downloads a file from a remote URL and places it in &quot;/path/in/container/&quot;</span>
+<span class="k">ADD</span><span class="w"> </span>https://example.com/download/somefile<span class="w"> </span>/path/in/container/
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c"># Automatically extracts &quot;app.tar.gz&quot; into &quot;/app/&quot; directory inside the image</span>
+<span class="k">ADD</span><span class="w"> </span>app.tar.gz<span class="w"> </span>/app/
+</code></pre></div>
+<h3 id="considerations-and-best-practices">Considerations and Best Practices</h3>
+<ul>
+<li>
+<p>Use <code>COPY</code> When Possible: Because of its additional features, ADD can lead to unexpected behavior (like automatic tar extraction) which might not be desired in all cases. Therefore, it's generally recommended to use the simpler <code>COPY</code> command when you just need to copy files from the local context without the extra features of <code>ADD</code>.</p>
+</li>
+<li>
+<p>Avoid Using <code>ADD</code> for Remote URLs: While <code>ADD</code> can fetch files from remote URLs, this is generally discouraged. It's better to use a tool like <code>curl</code> or <code>wget</code> in a RUN command to fetch remote files, which gives you more control over the download process (such as error handling and retries).</p>
+</li>
+<li>
+<p>Image Size Considerations: Be mindful of the files you add to your image. Adding unnecessary files or large files can increase the size of your image significantly.</p>
+</li>
+<li>
+<p>The choice between ADD and COPY depends on your specific needs. For most file-copying tasks within the Dockerfile's context, COPY is sufficient and preferable. Use ADD for its unique features when they are explicitly needed.</p>
+</li>
+</ul>
+<h2 id="understand-and-use-copy-instruction">Understand and use COPY instruction</h2>
+<p>The <code>COPY</code> command in a Dockerfile is used to copy files and directories from the host file system into the Docker image. It is a straightforward and commonly used command in Dockerfile scripting, particularly for adding local files to the image.</p>
+<p><code>Copy</code> takes two parameters - a source and destination and can be used to copy individual files as well as entire directories.</p>
+<ul>
+<li>
+<p>The source path must be inside the context of the build (the directory where the Dockerfile is located or specified via the build context).  </p>
+</li>
+<li>
+<p>The destination path is inside the container's filesystem. It can be an absolute path or a path relative to <code>WORKDIR</code> if it has been set.</p>
+</li>
+</ul>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">fedora:39</span>
+
+<span class="k">RUN</span><span class="w"> </span>dnf<span class="w"> </span>upgrade<span class="w"> </span>--refresh<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="nv">$packageName</span>
+
+<span class="c"># Copy the contents of the folder `app` in the working directory of the dockerfile to /usr/src/app inside the container</span>
+
+<span class="k">COPY</span><span class="w"> </span>./app<span class="w"> </span>/usr/src/app
+</code></pre></div>
+<h2 id="understand-the-difference-between-add-and-copy-instructions">Understand the difference between ADD and COPY instructions</h2>
+<p>The <code>ADD</code> and <code>COPY</code> commands in Dockerfiles are both used to copy files from the build context into the Docker image. However, they have distinct functionalities and are suitable for different scenarios. Here are the main differences:
+COPY Command</p>
+<ul>
+<li>Basic Functionality: COPY is a straightforward command used to copy files and directories from the Dockerfile's context (the local file system) into the Docker image.</li>
+<li>Simplicity and Clarity: It is explicitly used for copying local files and does not have any additional functionality, making it clear and predictable.</li>
+<li>Best Practice: Docker's best practices recommend using COPY unless you specifically need the additional capabilities of ADD.</li>
+</ul>
+<h3 id="add-command">ADD Command</h3>
+<ul>
+<li>Advanced Features: ADD has all the capabilities of COPY but also supports a couple of additional features:</li>
+<li><strong>Remote URL Support</strong>: ADD can copy files from a remote URL (e.g., http:// or https://) into the image, which COPY cannot do.</li>
+<li>
+<p><strong>Automatic Tar Extraction</strong>: ADD can automatically extract a tarball from the source directly into the destination within the image's filesystem. This extraction happens only if the tar file is in a recognized compression format (like gzip, bzip2, etc.) and is a local tar file (not a URL).</p>
+</li>
+<li>
+<p><strong>Versatility but with Complexity</strong>: Because of its additional capabilities, ADD can be used for more complex tasks than COPY. However, this also means its behavior can be less predictable, especially for new users.</p>
+</li>
+<li>
+<p><strong>Use with Caution</strong>: Given its additional features, ADD can potentially introduce unwanted side-effects (like unexpected network downloads or automatic extraction of files), and hence should be used carefully.</p>
+</li>
+</ul>
+<h3 id="choosing-between-copy-and-add">Choosing Between COPY and ADD*</h3>
+<ul>
+<li>Use <code>COPY</code> when you simply need to copy files from your local context into the Docker image. It is straightforward and adheres to the principle of least surprise.</li>
+<li>Use <code>ADD</code> when you need to utilize its advanced features like fetching files from a URL or automatic tarball extraction. However, be cautious of its implications, and prefer <code>COPY</code> for most other scenarios.</li>
+</ul>
+<h2 id="understand-and-use-workdir-and-user-instructions">Understand and use WORKDIR and USER instructions</h2>
+<p><code>WORKDIR</code> is used to set the working directory for subsequent commands such as <code>RUN</code>, <code>CMD</code>, <code>ENTRYPOINT</code>, <code>COPY</code> and <code>ADD</code>.</p>
+<p>Setting the <code>WORKDIR</code> provides context for these commands, as this provides the location it is based from.</p>
+<p>Examples:</p>
+<div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">fedora:39</span>
+
+<span class="k">RUN</span><span class="w"> </span>dnf<span class="w"> </span>upgrade<span class="w"> </span>--refresh<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="nv">$packageName</span>
+
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/usr/</span>
+
+<span class="k">RUN</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;HI&quot;</span><span class="w"> </span>&gt;<span class="w">  </span>test.txt
+</code></pre></div>
+<p>The file created will reside as /usr/test.txt</p>
+<div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">fedora:39</span>
+
+<span class="k">COPY</span><span class="w"> </span>./app<span class="w"> </span>/usr/src/app
+
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/usr/src/app</span>
+
+<span class="k">RUN</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;python&quot;</span>,<span class="w"> </span><span class="s2">&quot;your_script.py&quot;</span>,<span class="w"> </span><span class="s2">&quot;arg1&quot;</span>,<span class="w"> </span><span class="s2">&quot;arg2&quot;</span><span class="o">]</span><span class="w"> </span>
+</code></pre></div>
+<p>This will run <code>your_script.py</code> without having to specify the absolute path</p>
+<p><code>USER</code> is used to set the user identity (UID) and optionally the user group (GID) for any <code>RUN</code>, <code>CMD</code>, <code>ENTRYPOINT</code>, <code>COPY</code> and <code>ADD</code> instructions.</p>
+<p>It's commonly used to define a specific user to run an application inside the container vs running it as <code>root</code>, which can hae security implications.</p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code><span class="c"># Create a user &#39;appuser&#39; and set it as the current user</span>
+<span class="k">RUN</span><span class="w"> </span>adduser<span class="w"> </span>--disabled-password<span class="w"> </span>--gecos<span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w"> </span>appuser
+<span class="k">USER</span><span class="w"> </span><span class="s">appuser</span>
+</code></pre></div>
+<h3 id="syntax">Syntax</h3>
+<p><code>USER &lt;user&gt;</code> Sets the user for subsequent commands. <code>&lt;user&gt;</code> can be a user name or UID.</p>
+<p><code>USER &lt;user&gt;:&lt;group&gt;</code> Sets both the user and group for subsequent commands. <code>&lt;group&gt;</code> can be a group name or GID.</p>
+<h2 id="understand-security-related-topics">Understand security-related topics</h2>
+<ol>
+<li>
+<p>Image Security</p>
+<p>Trusted Sources: Use container images from trusted sources, such as official images on Docker Hub or other well-known registries. Be cautious with third-party images, as they may contain vulnerabilities or malicious code.
+Minimal Base Images: Use minimal base images (like Alpine Linux) that contain only the essential packages, reducing the attack surface.
+Vulnerability Scanning: Regularly scan container images for vulnerabilities using tools like Clair, Trivy, or Docker's own scanning features.
+Image Signing and Verification: Implement image signing and verification to ensure the integrity of the images. Tools like Docker Content Trust (DCT) can be used for this purpose.</p>
+</li>
+<li>
+<p>Secure Building of Images</p>
+<p>Dockerfile Best Practices: Follow best practices when writing Dockerfiles, such as avoiding the use of the root user, using multi-stage builds to minimize the image size, and removing unnecessary tools and files.
+Secrets Management: Avoid embedding secrets (like passwords and API keys) in image layers. Use secure mechanisms like Docker secrets or external secrets management tools.</p>
+</li>
+<li>
+<p>Runtime Security</p>
+<p>Container Isolation: Ensure containers are properly isolated from each other and from the host system. Use user namespaces to segregate container processes.
+Resource Limits: Implement resource limits (CPU, memory, etc.) to prevent denial-of-service (DoS) attacks.
+Read-Only File systems: Where possible, use read-only file systems for containers to prevent unwanted changes.</p>
+</li>
+<li>
+<p>Network Security</p>
+<p>Port Exposure: Be cautious about exposing container ports. Expose only necessary ports and use firewall rules to restrict access.
+Secure Networking: Use encrypted communication (TLS/SSL) for sensitive data. Consider network segmentation using Docker networks or Kubernetes namespaces to isolate container groups.</p>
+</li>
+<li>
+<p>Monitoring and Logging</p>
+<p>Audit Logs: Enable and monitor audit logs for container activity. Tools like Falco can help in detecting and alerting on suspicious container behavior.
+Anomaly Detection: Implement anomaly detection systems to catch unusual activities that could indicate a security breach.</p>
+</li>
+<li>
+<p>Compliance and Governance</p>
+<p>Regulatory Compliance: Ensure your container deployment complies with relevant industry standards and regulations (like GDPR, HIPAA, PCI-DSS).
+Image Lifecycle Management: Implement policies for image retention, updating, and disposal to ensure that containers are always running the latest and most secure versions.</p>
+</li>
+<li>
+<p>Updating and Patch Management</p>
+<p>Regular Updates: Regularly update and patch container images, dependencies, and the host system to mitigate newly discovered vulnerabilities.
+Immutable Tags: Avoid using mutable tags like latest for base images; instead, use specific version numbers to ensure consistency and traceability.</p>
+</li>
+</ol>
+<h2 id="understand-the-differences-and-applicability-of-cmd-vs-entrypoint-instructions">Understand the differences and applicability of <code>CMD</code> vs. <code>ENTRYPOINT</code> instructions</h2>
+<p><code>CMD</code> and <code>ENTRYPOINT</code> are two commands in Dockerfile that are often used to define the default behavior of a Docker container when it starts. While they appear similar, they have different purposes and behaviors.</p>
+<p><strong><code>CMD</code></strong></p>
+<ul>
+<li><strong>Purpose</strong>: CMD specifies the default command to run when a container starts. It is intended to provide defaults for an executing container.  </li>
+<li><strong>Flexibility</strong>: If you run the container and pass in arguments, those arguments will replace the default specified in the CMD.</li>
+<li><strong>Syntax Variations:</strong></li>
+<li>Shell form: <code>CMD command param1 param2</code></li>
+<li>Exec form: <code>CMD ["command", "param1", "param2"]</code></li>
+<li><strong>Use Case</strong>: Use CMD when you need to provide a default command and/or parameters that users can easily override when starting a container.</li>
+</ul>
+<p><strong><code>ENTRYPOINT</code></strong></p>
+<ul>
+<li><strong>Purpose</strong>: <code>ENTRYPOINT</code> configures a container to run as an executable. It allows you to set the base command which gets executed every time the container starts.</li>
+<li><strong>Consistency</strong>: Unlike <code>CMD</code>, if you pass arguments to the container at runtime, they are appended to the ENTRYPOINT command.</li>
+<li><strong>Syntax Variations</strong>:</li>
+<li>Shell form: <code>ENTRYPOINT command param1 param2</code></li>
+<li>Exec form (preferred for signal handling): <code>ENTRYPOINT ["command", "param1", "param2"]</code></li>
+<li><strong>Use Case</strong>: Use ENTRYPOINT when you want to configure your container to run as a specific executable (like a web server, database, etc.) and you don’t want the base command to be easily overridden.</li>
+</ul>
+<p>You can also combine the two:</p>
+<div class="highlight"><pre><span></span><code><span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;executable&quot;</span><span class="p">]</span>
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;param1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;param2&quot;</span><span class="p">]</span>
+</code></pre></div>
+<p>Here, <code>executable</code> will always run when the container starts, and it will use <code>param1</code> and <code>param2</code> as default parameters unless overridden.</p>
+<h2 id="understand-entrypoint-instruction-with-param">Understand ENTRYPOINT instruction with param</h2>
+<ul>
+<li><strong>Syntax Variations</strong>:</li>
+<li>Shell form: <code>ENTRYPOINT command param1 param2</code></li>
+<li>Exec form (preferred for signal handling): <code>ENTRYPOINT ["command", "param1", "param2"]</code></li>
+</ul>
+<h2 id="understand-when-and-how-to-expose-ports-from-a-containerfile">Understand when and how to expose ports from a Containerfile</h2>
+<p><code>EXPOSE</code> is used to define network services offered by the resulting container. When a container runs applications that listen on specific ports for incoming connections, we define these with <code>EXPOSE</code> so external applications/clients can access these services.</p>
+<p>Unless explicitly defined, TCP is assumed.</p>
+<p>Examples:</p>
+<div class="highlight"><pre><span></span><code><span class="c"># Listen on port 80 (TCP)</span>
+<span class="k">EXPOSE</span><span class="w"> </span><span class="s">80</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c"># Listen on ports 80 and 443 (TCP)</span>
+<span class="k">EXPOSE</span><span class="w"> </span><span class="s">80 443</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c"># Listen on port 8000 (UDP)</span>
+<span class="k">EXPOSE</span><span class="w"> </span><span class="s">8000/udp</span>
+</code></pre></div>
+<h2 id="understand-and-use-environment-variables-inside-images">Understand and use environment variables inside images</h2>
+<p>Environment variables are primarily used to manage configurations settings for applications running inside a container. They provide a way to inject configuration data into a container. This can include database connection settings, external API keys, or any other configuration that you might want to change without modifying the container image.</p>
+<p>To define an environment variable in a container image definition the instruction <code>ENV</code> is used</p>
+<h2 id="understand-env-instruction">Understand ENV instruction</h2>
+<div class="highlight"><pre><span></span><code><span class="k">ENV</span><span class="w"> </span>MY_ENV_VAR<span class="w"> </span>myvalue
+<span class="k">ENV</span><span class="w"> </span><span class="nv">DB_HOST</span><span class="o">=</span>localhost<span class="w"> </span><span class="nv">DB_PORT</span><span class="o">=</span><span class="m">5432</span>
+</code></pre></div>
+<p>In this example, <code>MY_ENV_VAR</code> is set to <code>myvalue</code>, and <code>DB_HOST</code> and <code>DB_PORT</code> are set with their respective values.</p>
+<p>Environment variables can be set at run time as well using in <code>-e</code> flag. For example:</p>
+<p><code>podman run -e "VAR_NAME=value nginx:latest</code></p>
+<p><code>podman run -e "DB_HOST=prod_db_host nginx:latest</code></p>
+<div class="highlight"><pre><span></span><code>podman<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;DB_HOST=prod_db_host&quot;</span><span class="w"> </span>nginx:latest
+podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span><span class="nv">$containerID</span><span class="w"> </span>bash<span class="w"> </span>
+root@099d86767893:/#<span class="w"> </span>env<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>DB
+<span class="nv">DB_HOST</span><span class="o">=</span>prod_db_host
+</code></pre></div>
+<h2 id="understand-container-volume">Understand container volume</h2>
+<p>Containers are ephemeral by nature. If no volume is created and used, any and all data is tightly coupled with the lifecycle of the container. Therefore, if the container terminates, data is lost.</p>
+<p>Within a container image spec, the <code>VOLUME</code> instruction can be used. For example:</p>
+<div class="highlight"><pre><span></span><code><span class="k">VOLUME</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;/data&quot;</span><span class="p">]</span>
+</code></pre></div>
+<p>This commands informs Docker that the container intends to use the specified directory (<code>/data</code>) as a volume. Note - data will not be persisted by simply using this command, but acts as a mount point from the host or another container as a <em>destination</em>.</p>
+<p>Mounting directories to this volume is typically handled at runtime using <code>podman</code> commands or config files in <code>docker compose</code></p>
+<h2 id="mount-a-host-directory-as-a-data-volume">Mount a host directory as a data volume</h2>
+<p>The syntax for mounting a host directory to a volume is as follows:</p>
+<div class="highlight"><pre><span></span><code>podman<span class="w"> </span>run<span class="w"> </span>-v<span class="w"> </span>/path/on/host:/path/in/container<span class="w"> </span><span class="o">[</span>other<span class="w"> </span>options<span class="o">]</span><span class="w"> </span>image_name<span class="w"> </span><span class="o">[</span>command<span class="o">]</span>
+</code></pre></div>
+<p>Therefore, using the example above with <code>/data</code> residing on the container, we can mount a host volume</p>
+<div class="highlight"><pre><span></span><code>podman<span class="w"> </span>run<span class="w"> </span>-v<span class="w"> </span>/home/user/data:/data<span class="w"> </span>nginx:latest
+</code></pre></div>
+<h2 id="understand-security-and-permissions-requirements-related-to-this-approach">Understand security and permissions requirements related to this approach</h2>
+<p><strong>Permissions</strong>: Ensure that the container's process has the necessary permissions to read and/or write to the mounted directory. This might require adjusting the permissions on the host directory.</p>
+<p><strong>SELinux</strong>: If you are running podman on a system with SELinux enabled (like Fedora), you might need to append :Z or :z to the volume mount flag to properly set the SELinux context for the volume. Use :Z for private mounts and :z for shared mounts.</p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>podman<span class="w"> </span>run<span class="w"> </span>-v<span class="w"> </span>/home/user/data:/var/myapp/data:Z<span class="w"> </span>nginx:latest
+</code></pre></div>
+<p><strong>User and Group IDs:</strong> Inside a container, processes run as a specific user and group, identified by User ID (UID) and Group ID (GID). By default, most containers run as the root user (UID 0), but it's a best practice to run processes as a non-root user for security reasons.</p>
+<p><strong>Host Directory Permissions</strong>: The permissions of the host directory determine how the mounted files can be accessed. For example, if the host directory is only writable by the root user, a non-root process inside the container won't be able to write to it unless given appropriate permissions.</p>
+<p><code>chmod</code> and <code>chown</code> commands can be used to change the permissions on the host system so that the container process has the correct access.</p>
+<h2 id="understand-the-lifecycle-and-cleanup-requirements-of-this-approach">Understand the lifecycle and cleanup requirements of this approach</h2>
+<p>When mounting a directory from the host system to a container, the data is persisted outside of the lifecycle of the container. If the container exits, the data remains. Any data created from the container will be reflected in the directory and vise-versa.</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.cd18aaf1.min.js"></script>
+      
+    
+  </body>
+</html>
