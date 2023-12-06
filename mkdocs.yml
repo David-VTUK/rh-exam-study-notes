@@ -1,0 +1,25 @@
+site_name: Red Hat Certification Exam Notes
+theme:
+  name: material
+  palette:
+    scheme: slate
+
+
+
+nav:
+  - Home: 'readme.md'
+  - 'EX188':
+      - '0 - Exam Objectives': 'ex188/readme.md'
+      - '1 - Implement images using Podman': 'ex188/01-implement-images-using-podman.md'
+      - '2 - Manage images': 'ex188/02-manage-images.md'
+      - '3 - Run containers locally using Podman': 'ex188/03-run-containers-locally-using-podman.md'
+      - '4 - Run multi-container applications with Podman': 'ex188/04-run-multi-container-applications-with-podman.md'
+      - '5 - Troubleshoot containerized applications': 'ex188/05-troubleshoot-containerized-applications.md'
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+
+extra_css:
+  - custom.css
