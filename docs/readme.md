@@ -1,1 +1,3 @@
-# RH Cert Docs
+# RH Exam Revision Notes
+
+* EX188
