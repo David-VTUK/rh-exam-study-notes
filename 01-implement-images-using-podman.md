@@ -263,7 +263,7 @@ USER appuser
 
     Container Isolation: Ensure containers are properly isolated from each other and from the host system. Use user namespaces to segregate container processes.
     Resource Limits: Implement resource limits (CPU, memory, etc.) to prevent denial-of-service (DoS) attacks.
-    Read-Only Filesystems: Where possible, use read-only filesystems for containers to prevent unwanted changes.
+    Read-Only File systems: Where possible, use read-only file systems for containers to prevent unwanted changes.
 
 4. Network Security
 
@@ -347,7 +347,7 @@ EXPOSE 8000/udp
 
 ## Understand and use environment variables inside images
 
-Environment variables are primarialy used to manage configurations settings for applications running inside a container. They provide a way to inject configuration data into a container. This can include database connection settings, external API keys, or any other configuration that you might want to change without modifying the container image.
+Environment variables are primarily used to manage configurations settings for applications running inside a container. They provide a way to inject configuration data into a container. This can include database connection settings, external API keys, or any other configuration that you might want to change without modifying the container image.
 
 To define an environment variable in a container image definition the instruction `ENV` is used
 
@@ -385,7 +385,7 @@ VOLUME ["/data"]
 
 This commands informs Docker that the container intends to use the specified directory (`/data`) as a volume. Note - data will not be persisted by simply using this command, but acts as a mount point from the host or another container as a *destination*.
 
-Mounting directories to this volume is typically handled at runtime using `podman` commands or configu files in `docker compose`
+Mounting directories to this volume is typically handled at runtime using `podman` commands or config files in `docker compose`
 
 ## Mount a host directory as a data volume  
 

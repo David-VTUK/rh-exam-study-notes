@@ -2,7 +2,7 @@
 
 ## Understand private registry security
 
-Several aspects govern private registry security and can be categorised into the following:
+Several aspects govern private registry security and can be categorized into the following:
 
 ### Registry Authentication and Authorization
 
