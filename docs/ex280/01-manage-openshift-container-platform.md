@@ -216,7 +216,7 @@ Also check for out of the box exposed Prometheus metrics and Grafana dashboards.
 
 ## Troubleshoot common container, pod, and cluster events and alerts
 
-This is largely covered in preceeding topics, `oc get/describe/logs/adm` can be leveraged for a plethora of troubleshooting scenarios.
+This is largely covered in preceding topics, `oc get/describe/logs/adm` can be leveraged for a plethora of troubleshooting scenarios.
 
 ## Use product documentation
 
