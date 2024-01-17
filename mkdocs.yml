@@ -15,7 +15,8 @@ nav:
       - '3 - Run containers locally using Podman': 'ex188/03-run-containers-locally-using-podman.md'
       - '4 - Run multi-container applications with Podman': 'ex188/04-run-multi-container-applications-with-podman.md'
       - '5 - Troubleshoot containerized applications': 'ex188/05-troubleshoot-containerized-applications.md'
-
+  - 'EX280':
+      - 'test': 'ex280/01-manage-openshift-container-platform.md'
 markdown_extensions:
   - admonition
   - pymdownx.details
@@ -23,3 +24,7 @@ markdown_extensions:
 
 extra_css:
   - custom.css
+
+
+plugins:
+    - mkdocs-video
