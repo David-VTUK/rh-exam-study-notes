@@ -126,6 +126,12 @@ oc new-app <internal-registry-url>/<namespace>/<image-name>:<tag>
 
 ## Deploy jobs to perform one-time tasks
 
+```bash
+oc create job NAME --image=image [--from=cronjob/name] -- [COMMAND] [args...] [options]
+```
+
+
+
 ## Manage application deployments
 
 ## Work with replica sets
